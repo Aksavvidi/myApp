@@ -1,16 +1,23 @@
 const {update} = require('../models/products.models');
 const Product = require('../models/products.models');
 
+const logger = require('../logger/logger');
+
 exports.findAll = function(req, res) {
     console.log('Find All products');
 
     Product.find({}, (err, results) => {
         if(err) {
             res.status(400).json({status: false, data: err});
+            logger.error("Error in reading products", err);
             console.log('Problem in reading product', err);
         }else{
             res.status(200).json({status: true, data: results});
             console.log('Success in reading product');
+            logger.info("Success in reading all products");
+            logger.warn("Warn in reading all products");
+            logger.error("Error in reading products");
+            logger.debug("Debug in reading all products");
         }
     });
 };

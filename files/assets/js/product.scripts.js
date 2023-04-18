@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     $.ajax({
-      url:'http://localhost:3000/api/products/findΑll',
+      url:'http://localhost:3000/api/products/findall',
       type:'get',
       dataType:'JSON'
     })
