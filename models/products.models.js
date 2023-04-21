@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const uniqueValidator = require('mongoose-unique-validator')
-const mongooseUniqueValidator = require('mongoose-unique-validator');
+// const uniqueValidator = require('mongoose-unique-validator')
+
 
 const Schema = mongoose.Schema;
 
@@ -8,21 +8,20 @@ let productsSchema = new Schema({
     product: {
         type: String,
         max: 100,
-        unique: true,
+        required: true,
         trim: true,
-        lowercase: true
     },
     cost:{
         type: Number,
-        max: 100,
+        required: true,
     },
     description: {
         type: String,
-        max: 150,
+        max: 350,
     },
     quantity: {
         type: Number,
-        max: 100,
+        required: true,
     },
 
 },{
@@ -30,6 +29,6 @@ let productsSchema = new Schema({
     timestamps: true 
   });
 
-productsSchema.plugin(uniqueValidator);
+// productsSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('Products', productsSchema);
