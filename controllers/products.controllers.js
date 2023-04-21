@@ -1,4 +1,4 @@
-const {update} = require('../models/products.models');
+// const {update} = require('../models/products.models');
 const Product = require('../models/products.models');
 
 const logger = require('../logger/logger');
@@ -24,17 +24,17 @@ exports.findAll = function(req, res) {
 
 exports.findOne = function(req, res) {
  
-    const product = req.params.product;
+    const id = req.params.id;
 
-    console.log('Find product: ', product);
+    console.log('Find product ith id: ', id);
 
-    Product.findOne({product: product}, (err, results) => {
+    Product.findOne({_id: id}, (err, results) => {
         if(err) {
             res.status(400).json({status: false, data: err});
-            console.log(`Problem in finding product ${product}`, err)
+            console.log(`Problem in finding product with id: ${id}`, err)
         }else {
             res.status(200).json({status: true, data: results});
-            console.log('Success in finding product: ', product);
+            console.log('Success in finding product with id: ', id);
         }
     });
 
@@ -62,15 +62,16 @@ newProduct.save((err, result) => {
 }
 
 exports.update = function (req, res) {
-    const product = req.body.product;
+    const id = req.body.id;
 
     const updateProduct = {
+        product: req.body.product,
         cost: req.body.cost,
         description: req.body.description,
         quantity: req.body.quantity
     };
 
-    Product.findOneAndUpdate({product: product}, updateProduct,{new: true}, (err, result)=> {
+    Product.findOneAndUpdate({_id: id}, updateProduct,{new: true}, (err, result)=> {
         if(err) {
             res.status(400).json({status: false, data: err});
             console.log(`Problem in updating product`, err) 
@@ -82,9 +83,9 @@ exports.update = function (req, res) {
 };
 
 exports.delete = function(req,res) {
-    const product = req.params.product;
-    console.log('Delete product', product);
-    Product.deleteOne({product: product},(err, result) => {
+    const id = req.params.id;
+    console.log('Delete product with id', id);
+    Product.deleteOne({_id: id},(err, result) => {
         if(err) {
             res.status(400).json({status: false, data: err});
             console.log(`Problem in deleting product`, err) 
