@@ -403,6 +403,7 @@ exports.options = {
                             "description": { "type": "string" },
                             "quantity": { "type": "number"},
                         },
+                        "$ref": "#/components/schemas/Products",
                         "required":["product"]
                     }
                 }],
@@ -414,17 +415,23 @@ exports.options = {
                     }
             }
         },
-        "/api/products/delete/{product}":{
+        "/api/products/delete/{id}":{
             "delete":{
                 "tags":[
                     "Products"
                 ],
                 "description":"Delete product from the system",
                 "parameters":[{
-                    "name":"product",
+                    "name":"id",
                     "in": "path",
-                    "description": "Product that we will delete"
+                    "description": "Id of the product that we will delete",
+                    "schema": {
+                        "$ref": "#/components/schemas/Product",
+                      }
                 }],
+                "produces": [
+                    "application/json"
+                  ],
                 "response":{
                     "200":{
                         "description": "Deleted product"
